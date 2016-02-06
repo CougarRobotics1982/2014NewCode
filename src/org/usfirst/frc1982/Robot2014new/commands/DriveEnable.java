@@ -45,8 +45,13 @@ public class DriveEnable extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Joystick xbox = Robot.oi.getXBoxController();
-    	RobotMap.driveLeft.set(xbox.getY()/2);
-    	RobotMap.driveRight.set(xbox.getThrottle()/2);
+    	if (!Robot.reversed) {
+    		RobotMap.driveLeft.set(xbox.getY()/2);
+    		RobotMap.driveRight.set(xbox.getThrottle()/2);
+    	} else {
+    		RobotMap.driveLeft.set(-1*xbox.getThrottle()/2);
+    		RobotMap.driveRight.set(-1*xbox.getY()/2);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

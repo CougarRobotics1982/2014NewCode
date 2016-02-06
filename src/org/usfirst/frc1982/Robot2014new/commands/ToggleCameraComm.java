@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
 import org.usfirst.frc1982.Robot2014new.CameraServerTwo;
 import org.usfirst.frc1982.Robot2014new.Robot;
 
+import com.ni.vision.NIVision;
+
 /**
  *
  */
@@ -44,14 +46,18 @@ public class ToggleCameraComm extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	CameraServerTwo server = CameraServerTwo.getInstance();
-    	if (server.m_camera == server.m_camera1) {
-    		server.SwitchTo(0);
-//    		System.out.println("working?");
-    	} else if (server.m_camera == server.m_camera2) {
-    		server.SwitchTo(1);
-    	}
-//    	System.out.println("working?");
+//    	Robot.cameraFeeds.changeCam(1);
+    	 if(Robot.currSession == Robot.sessionfront){
+      		  NIVision.IMAQdxStopAcquisition(Robot.currSession);
+      		Robot.currSession = Robot.sessionback;
+      		Robot.reversed = true;
+	          NIVision.IMAQdxConfigureGrab(Robot.currSession);
+    	 } else if(Robot.currSession == Robot.sessionback){
+     		  NIVision.IMAQdxStopAcquisition(Robot.currSession);
+     		 Robot.currSession = Robot.sessionfront;
+     		 Robot.reversed = false;
+      		  NIVision.IMAQdxConfigureGrab(Robot.currSession);
+    	 }
     }
 
     // Make this return true when this Command no longer needs to run execute()
