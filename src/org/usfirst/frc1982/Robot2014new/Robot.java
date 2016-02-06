@@ -154,8 +154,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Angle:", gyro.getAngle());
         SmartDashboard.putNumber("Rate: ", gyro.getRate());
         byteAr = new byte[1];
-        bytebuffer = ByteBuffer.allocateDirect(3);
-        boolean test =ColorSensor.read(0x04,3,bytebuffer);
+        bytebuffer = ByteBuffer.allocateDirect(1);
+        boolean test =ColorSensor.read(0x04,1,bytebuffer);
        
         System.out.println(test);
         //ColorSensor.write(0x03, 0x00);
