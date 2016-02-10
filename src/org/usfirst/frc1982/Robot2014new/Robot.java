@@ -154,11 +154,17 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Angle:", gyro.getAngle());
         SmartDashboard.putNumber("Rate: ", gyro.getRate());
         byteAr = new byte[1];
-        bytebuffer = ByteBuffer.allocateDirect(1);
-        boolean test =ColorSensor.read(0x04,1,bytebuffer);
-       
-        System.out.println(test);
-        //ColorSensor.write(0x03, 0x00);
+//        bytebuffer = ByteBuffer.allocateDirect(1);
+        boolean success = !ColorSensor.read(0x04,1,byteAr);
+
+//        System.out.println("Succes = " + success);
+        if (success) {
+        	System.out.println("color sensor returned true");
+//        	System.out.println(byteAr[0]);
+        } else {
+        	System.out.println("color sensor returned false");
+        }
+        ColorSensor.write(0x03, 0x00);
     }
 
     public void autonomousInit() {
